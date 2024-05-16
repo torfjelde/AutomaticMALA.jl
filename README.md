@@ -6,4 +6,4 @@
 
 This is a simple implementation of [`"AutoMALA: Locally Adaptive Metropolis-Adjusted Langevin Algorithm" by Biron-Lattes, Surjanovic & Syed et al. (2023)`](https://arxiv.org/abs/2310.16782), i.e. MALA but with a step size that is allowed to change in a reversible manner.
 
-Note that this is mainly meant as a demonstration of how to implement samplers in [AbstractMCMC.jl](https://github.com/TuringLang/AbstractMCMC.jl) and is not meant to a complete nor production ready sampler implementation.
+Note that this is mainly meant as a demonstration of how to implement samplers in [AbstractMCMC.jl](https://github.com/TuringLang/AbstractMCMC.jl) and rather than a production ready sampler implementation.
