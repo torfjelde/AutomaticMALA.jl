@@ -3,5 +3,12 @@ uuid = "fa450ca5-f5a1-411d-b5db-2b752c7e65ee"
 authors = ["Tor Erlend Fjelde <tor.erlend95@gmail.com> and contributors"]
 version = "0.1.0"
 
+[deps]
+AbstractMCMC = "80f14c24-f653-4e6a-9b94-39d6b0f70001"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+LogDensityProblems = "6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
 [compat]
 julia = "1.6"
