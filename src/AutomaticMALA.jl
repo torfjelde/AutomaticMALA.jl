@@ -11,7 +11,7 @@ export AutoMALA
 
 struct AutoMALA{T} <: AbstractMCMC.AbstractSampler
     ϵ_init::T
-    num_adapt::Int
+    num_unadjusted::Int
 end
 
 struct AutoMALAState{T1,T2,T3}
@@ -26,7 +26,7 @@ struct AutoMALAState{T1,T2,T3}
     iteration::Int
 end
 
-isadapt(sampler::AutoMALA, state::AutoMALAState) = state.iteration < sampler.num_adapt
+isunadjusted(sampler::AutoMALA, state::AutoMALAState) = state.iteration < sampler.num_unadjusted
 
 function compute_logprob(model, x, p)
     ℓ_x = LogDensityProblems.logdensity(model, x)
@@ -83,7 +83,7 @@ function AbstractMCMC.step(
     # Compute acceptance probability.
     logα = lp - lp_prev
     # Accept or reject.
-    isaccept = isadapt(sampler, state) || (j == j_prop && log(rand(rng)) < logα)
+    isaccept = isunadjusted(sampler, state) || (j == j_prop && log(rand(rng)) < logα)
 
     state_new = if isaccept
         AutoMALAState(x, p, lp, a, b, ϵₜ, j, isaccept, state.iteration + 1)
