@@ -1,0 +1,7 @@
+name = "AutomaticMALA"
+uuid = "fa450ca5-f5a1-411d-b5db-2b752c7e65ee"
+authors = ["Tor Erlend Fjelde <tor.erlend95@gmail.com> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1.6"
