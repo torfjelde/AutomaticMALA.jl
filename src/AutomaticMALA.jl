@@ -28,6 +28,8 @@ struct AutoMALA{T} <: AbstractMCMC.AbstractSampler
     num_unadjusted::Int
 end
 
+AutoMALA(; ϵ_init=1.0, num_unadjusted = 1) = AutoMALA(float(ϵ_init), num_unadjusted)
+
 struct AutoMALAState{T1,T2,T3}
     "current position"
     x::T1
