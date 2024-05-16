@@ -4,25 +4,48 @@ using Random: Random
 using AbstractMCMC: AbstractMCMC
 using LogDensityProblems: LogDensityProblems
 
+using DocStringExtensions: TYPEDFIELDS
+
 using LinearAlgebra
 using Distributions
 
 export AutoMALA
 
+"""
+    AutoMALA
+
+An automatic version of the Metropolis-adjusted Langevin algorithm (MALA).
+
+See [Biron-Lattes, Surjanovic & Syed et al. (2023)](https://arxiv.org/abs/2310.16782) for details.
+
+# Fields
+$(TYPEDFIELDS)
+"""
 struct AutoMALA{T} <: AbstractMCMC.AbstractSampler
+    "initial step size to use"
     ϵ_init::T
+    "number of unadjusted steps to take"
     num_unadjusted::Int
 end
 
 struct AutoMALAState{T1,T2,T3}
+    "current position"
     x::T1
+    "current momentum"
     p::T1
+    "current log probability (of joint)"
     lp::T2
+    "current `a`, i.e. lower-bound of step size"
     a::T3
+    "current `b`, i.e. upper-bound of step size"
     b::T3
+    "current (iteration-average) step size"
     ϵ::T3
+    "number of halving/doubling steps taken"
     j::Int
+    "whether the proposal was accepted"
     isaccept::Bool
+    "iteration number"
     iteration::Int
 end
 
@@ -140,6 +163,25 @@ function sample_a_and_b(rng::Random.AbstractRNG)
     return min(u1, u2), max(u1, u2)
 end
 
+"""
+    round_based_adaptation([rng, ]model, sample::AutoMAL; num_rounds=10, kwargs...)
+
+Run adaptation for a number of rounds, each time doubling the number of iterations.
+
+# Arguments
+- `rng::Random.AbstractRNG`: Random number generator.
+- `model`: The model.
+- `sample::AutoMALA`: The sampler.
+
+# Keyword Arguments
+- `num_rounds::Int=10`: The number of rounds.
+- `kwargs...`: Additional keyword arguments passed to `sample`.
+
+# Returns
+- `sampler::AutoMALA`: Sampler containing the adapted parameters.
+- `initial_params`: Resulting parameters after adaptation.
+
+"""
 function round_based_adaptation(
     model,
     sampler::AutoMALA;
