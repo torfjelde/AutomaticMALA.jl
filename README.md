@@ -9,7 +9,7 @@ This is a simple implementation of [`"AutoMALA: Locally Adaptive Metropolis-Adju
 Note that this is mainly meant as a demonstration of how to implement samplers in [AbstractMCMC.jl](https://github.com/TuringLang/AbstractMCMC.jl) and rather than a production ready sampler implementation.
 
 # Usage
-It is easy to use `AutoMALA` with [AbstractMCMC.jl](https://github.com/TuringLang/Turing.jl) through the `Turing.externalsampler` interface:
+It is easy to use `AutoMALA` with [Turing.jl](https://github.com/TuringLang/Turing.jl) through the `Turing.externalsampler` interface:
 
 ```julia
 using AutomaticMALA, Turing
